@@ -38,7 +38,7 @@ class ArrayStack {
     //! Tamanho total da pilha
     std::size_t max_size();
 
-    //! vazia
+    //! vaziaT
     bool empty();
 
     //! cheia
@@ -57,7 +57,7 @@ class ArrayStack {
 #endif
 
 template<typename T>
-structures::ArrayStack<T>::ArrayStack() {	 	  	 	   	 	 		  	   	   	 	
+structures::ArrayStack<T>::ArrayStack() {
     max_size_ = DEFAULT_SIZE;
     top_ = -1;
     contents = new T(max_size_);
@@ -93,6 +93,36 @@ void structures::ArrayStack<T>::push(const T& data) {
 }
 
 template<typename T>
-T structures::ArrayStack<T>::pop() {	 	  	 	   	 	 		  	   	   	 	
+T structures::ArrayStack<T>::pop() {
+    
+}
+
+template<typename T>
+T& structures::ArrayStack<T>::top() {
+    
+}
+
+template<typename T>
+void structures::ArrayStack<T>::clear() {
+    
+}
+
+template<typename T>
+std::size_t structures::ArrayStack<T>::size() {
+    
+}
+
+template<typename T>
+std::size_t structures::ArrayStack<T>::max_size() {
+    
+}
+
+template<typename T>
+bool structures::ArrayStack<T>::empty() {
+    
+}
+
+template<typename T>
+bool structures::ArrayStack<T>::full() {
     
 }
