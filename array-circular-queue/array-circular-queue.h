@@ -75,8 +75,6 @@ void structures::ArrayQueue<T>::enqueue(const T& data) {
         end_ = (end_ + 1) % max_size();
         contents[end_] = data;
         size_++;
-        // size_++;
-        // contents[size_] = data;
     }
 }
 template<typename T>
@@ -88,12 +86,6 @@ T structures::ArrayQueue<T>::dequeue() {
         begin_ = (begin_ + 1) % max_size();
         size_--;
         return aux;
-        // T retorno = contents[0];
-        // for (int i = 0; i < size_; i++) {
-        //     contents[i] = contents[i+1];
-        // }
-        // size_--;
-        // return retorno;
     }
 }
 template<typename T>
