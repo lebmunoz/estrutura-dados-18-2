@@ -1,4 +1,4 @@
-//  Copyright 2018 Luis Enrique Borba Munoz
+//  Copyright 2019 Luis Enrique Borba Munoz
 #ifndef STRUCTURES_ARRAY_LIST_H
 #define STRUCTURES_ARRAY_LIST_H
 
@@ -60,6 +60,8 @@ class ArrayList {
     T* contents;
     std::size_t size_;
     std::size_t max_size_;
+    int begin_;  // índice para o início da lista 
+    int end_;  // índice para o início da lista
 
     static const auto DEFAULT_MAX = 10u;
 };
@@ -69,17 +71,21 @@ class ArrayList {
 #endif
 
 template<typename T>
-structures::ArrayList<T>::ArrayList() {
+structures::ArrayList<T>::ArrayList() {                                             
     max_size_ = DEFAULT_MAX;
-    size_ = -1;
     contents = new T[max_size_];
+    size_ = 0;
+    begin_ = 0;
+    end_ = -1;
 }
 
 template<typename T>
 structures::ArrayList<T>::ArrayList(std::size_t max_size) {
     max_size_ = max_size;
-    size_ = -1;
     contents = new T[max_size_];
+    size_ = 0;
+    begin_ = 0;
+    end_ = -1;
 }
 
 template<typename T>
@@ -105,8 +111,17 @@ void structures::ArrayList<T>::insert(const T& data, std::size_t index) {
         throw std::out_of_range("Lista cheia");
     } else if (index > size_+2 || index < 0) {
         throw std:: out_of_range("Posição inválida");
-    } else {
+    } else {                                                
         size_++;
+
+        end_ = (end_ + 1) % max_size();
+// Para não ser necessário mover os dados, utiliza-se um vetor de elementos de vetor, de modo que exista um encadeamento com um índice para o próximo elemento.
+// Com isso, numa adição ou remoção, torna-se necessário atualizar o índice para o próximo elemento em todos os elementos que possuam dados, ao invés de movimentar os elementos de fato dentro do vetor.
+// De qualquer forma, é necessária a utilização de um bloco de repetição "for" para a atualização dos índices, tal qual na implementação tradicional da lista de array.
+// Para isso é preciso criar uma nova classe modelando um elemento de array encadeado, com getters e setters, análoga à implementação de lista encadeada com ponteiros.
+
+
+
         for (int i = size_; i > index; i--) {
             contents[i] = contents[i-1];
         }
@@ -141,7 +156,7 @@ T structures::ArrayList<T>::pop(std::size_t index) {
 template<typename T>
 T structures::ArrayList<T>::pop_back() {
     return pop(size_);
-}
+}                                               
 template<typename T>
 T structures::ArrayList<T>::pop_front() {
     return pop(0);
@@ -177,7 +192,7 @@ bool structures::ArrayList<T>::contains(const T& data) const {
                 return true;
             }
             atual++;
-        }
+        }                                               
         return false;
     }
 }
@@ -213,7 +228,7 @@ T& structures::ArrayList<T>::operator[](std::size_t index) {
 }
 template<typename T>
 const T& structures::ArrayList<T>::at(std::size_t index) const {
-    if (empty()) {
+    if (empty()) {                                              
         throw std::out_of_range("Lista vazia");
     } else if (index > size_+2 || index < 0) {
         throw std:: out_of_range("Posição inválida");

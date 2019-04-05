@@ -1,0 +1,23 @@
+Inserção de dado:
+
+	1) Alocar um vetor 'datanew' com 'Strlen(data)+1' caracteres
+	2) Copiar caracteres dde 'data' para 'datanew'
+	3) Inserir 'datanew' na posição 'index' escolhida:
+
+		ArrayList::insert(datanew, index);
+
+
+Remoção (pop)
+
+	1) Alocar vetor de retorno
+	2) Buscar ponteiro char na posição 'index' escolhida:
+
+		ArrayList::at(index);
+
+	3) Copiar no vetor alocado
+	4) Destacar
+	5) Remover de 'index':
+
+		ArrayList::pop(index)
+
+	6) Retornar vetor alocado
