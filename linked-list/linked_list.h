@@ -1,4 +1,4 @@
-//! Copyright 2018 Luis Enrique Munoz
+//! Copyright 2019 Luis Enrique Munoz
 #ifndef STRUCTURES_LINKED_LIST_H
 #define STRUCTURES_LINKED_LIST_H
 
@@ -62,7 +62,7 @@ class LinkedList {
 
  private:
     //! Elemento
-    class Node {	 	  	 	   	 	 		  	   	   	 	
+    class Node {
      public:
         explicit Node(const T& data):
             data_{data}
@@ -104,7 +104,7 @@ class LinkedList {
     };
 
     //! último nodo da lista
-    Node* end() {	 	  	 	   	 	 		  	   	   	 	
+    Node* end() {
         auto it = head;
         for (auto i = 1u; i < size(); ++i) {
             it = it->next();
@@ -141,7 +141,7 @@ void structures::LinkedList<T>::clear() {
 template<typename T>
 void structures::LinkedList<T>::push_back(const T& data) {
     insert(data, size());
-}	 	  	 	   	 	 		  	   	   	 	
+}
 
 template<typename T>
 void structures::LinkedList<T>::push_front(const T& data) {
@@ -151,33 +151,33 @@ void structures::LinkedList<T>::push_front(const T& data) {
     } else {
         novo->next(head);
         head = novo;
-		size_++;
+        size_++;
     }
 }
 
 template<typename T>
 void structures::LinkedList<T>::insert(const T& data, std::size_t index) {
     if (index >= size_+1 || index < 0) {
-    	throw std::out_of_range("Erro de posição");
+        throw std::out_of_range("Erro de posição");
     } else if (empty() || index == 0) {
-    	push_front(data);
+        push_front(data);
     } else {
-    	Node* anterior = head;
-    	for (size_t i = 1u; i < index; i++) {
-    		anterior = anterior->next();
-    	}
-    	Node* novo = new Node(data, anterior->next());
-		if (novo == NULL) {
-			throw std::out_of_range("Memória cheia");
-		}
-    	anterior->next(novo);
-    	size_++;
+        Node* anterior = head;
+        for (size_t i = 1u; i < index; i++) {
+            anterior = anterior->next();
+        }
+        Node* novo = new Node(data, anterior->next());
+        if (novo == NULL) {
+            throw std::out_of_range("Memória cheia");
+        }
+        anterior->next(novo);
+        size_++;
     }
 }
 
 template<typename T>
 void structures::LinkedList<T>::insert_sorted(const T& data) {
-    if (empty()) {	 	  	 	   	 	 		  	   	   	 	
+    if (empty()) {
         push_front(data);
     } else {
         Node* auxiliar = head;
@@ -195,7 +195,7 @@ T& structures::LinkedList<T>::at(std::size_t index) {
     if (empty()) {
         throw std::out_of_range("Lista vazia");
     } else if (index >= size_+1 || index < 0) {
-    	throw std::out_of_range("Erro de posição");
+        throw std::out_of_range("Erro de posição");
     } else {
         Node* auxiliar = head;
         for (size_t i = 0u; i < index; i++) {
@@ -209,48 +209,48 @@ template<typename T>
 T structures::LinkedList<T>::pop(std::size_t index) {
     if (empty()) {
         throw std::out_of_range("Lista vazia");
-    } else if (index >= size_+1 || index < 0) {
-    	throw std::out_of_range("Erro de posição");
-    } else if (index == 1) {
+    } else if (index >= size_ || index < 0) {
+        throw std::out_of_range("Erro de posição");
+    } else if (index == 0) {
         return pop_front();
-    } else {	 	  	 	   	 	 		  	   	   	 	
+    } else {
         T volta;
         Node* eliminar;
         Node* anterior = head;
-    	for (size_t i = 0u; i < index-2; i++) {
-    		anterior = anterior->next();
-    	}
-    	eliminar = anterior->next();
-    	volta = eliminar->data();
-    	anterior->next(eliminar->next());
-    	size_--;
-    	delete eliminar;
-    	return volta;
+        for (size_t i = 0u; i < index-1; i++) {
+            anterior = anterior->next();
+        }
+        eliminar = anterior->next();
+        volta = eliminar->data();
+        anterior->next(eliminar->next());
+        size_--;
+        delete eliminar;
+        return volta;
     }
 }
 
 template<typename T>
 T structures::LinkedList<T>::pop_back() {
-    return pop(size());
+    return pop(size()-1);
 }
 
 template<typename T>
 T structures::LinkedList<T>::pop_front() {
-	if (empty()) {
+    if (empty()) {
         throw std::out_of_range("Lista vazia");
-	} else {
-		T volta;
-		Node* eliminar = head;
-		volta = eliminar->data();
-		head = eliminar->next();
-		size_--;
-		delete eliminar;
-		return volta;
-	}
+    } else {
+        T volta;
+        Node* eliminar = head;
+        volta = eliminar->data();
+        head = eliminar->next();
+        size_--;
+        delete eliminar;
+        return volta;
+    }
 }
 
 template<typename T>
-void structures::LinkedList<T>::remove(const T& data) {	 	  	 	   	 	 		  	   	   	 	
+void structures::LinkedList<T>::remove(const T& data) {
     pop(find(data));
 }
 
@@ -280,20 +280,20 @@ bool structures::LinkedList<T>::contains(const T& data) const {
 
 template<typename T>
 std::size_t structures::LinkedList<T>::find(const T& data) const {
-	if (empty()) {
+    if (empty()) {
         throw std::out_of_range("Lista vazia");
-	} else {
-	    Node* auxiliar = head;
+    } else {
+        Node* auxiliar = head;
         size_t i = 0u;
         while (i < size()) {
-            if (auxiliar->data() == data) {	 	  	 	   	 	 		  	   	   	 	
+            if (auxiliar->data() == data) {
                 return i;
             }
             auxiliar = auxiliar->next();
             i++;
         }
         return i;
-	}
+    }
 }
 
 template<typename T>
