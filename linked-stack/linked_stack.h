@@ -1,4 +1,4 @@
-// Copyright 2018 Luis Enrique Munoz
+// Copyright 2019 Luis Enrique Munoz
 
 #include "./linked_list.h"
 
@@ -39,9 +39,13 @@ class LinkedStack {
         Node(const T& data, Node* next);
 
         //! getter: info
-        T& data();
+        T& data() {
+            return data_;
+        }
         //! getter-constante: info
-        const T& data() const;
+        const T& data() const {
+            return data_;
+        }
 
         //! getter: próximo
         Node* next();
@@ -59,14 +63,14 @@ class LinkedStack {
     Node* top_;
     //! tamanho
     std::size_t size_;
-    //! MINHA PORTA DE ACESSO À CLASSE LISTA
+    //! ACESSO À CLASSE LISTA
     LinkedList<T> lista;
 };
 
 }  // namespace structures
 
 template<typename T>
-structures::LinkedStack<T>::LinkedStack() {	 	  	 	   	 	 		  	   	   	 	
+structures::LinkedStack<T>::LinkedStack() {
     size_ = 0u;
     top_ = NULL;
 }
@@ -93,7 +97,7 @@ T structures::LinkedStack<T>::pop() {
 
 template<typename T>
 T& structures::LinkedStack<T>::top() const {
-    return top_->data();
+    return lista.at(0);
 }
 
 template<typename T>
@@ -102,6 +106,6 @@ bool structures::LinkedStack<T>::empty() const {
 }
 
 template<typename T>
-std::size_t structures::LinkedStack<T>::size() const {	 	  	 	   	 	 		  	   	   	 	
+std::size_t structures::LinkedStack<T>::size() const {
     return lista.size();
 }
